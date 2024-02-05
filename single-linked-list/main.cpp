@@ -1,5 +1,5 @@
 #include <cassert>
-#include <iostream>
+#include <string>
 
 #include "single-linked-list.h"
 using namespace std::string_literals;
