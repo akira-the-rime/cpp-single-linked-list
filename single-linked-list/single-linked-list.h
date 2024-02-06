@@ -192,9 +192,7 @@ public:
     }
 
     void swap(SingleLinkedList<Type>& other) noexcept {
-        Node* temp_node = this->head_.next_node;
-        this->head_.next_node = other.head_.next_node;
-        other.head_.next_node = temp_node;
+        std::swap(this->head_.next_node, other.head_.next_node);
         size_t temp_size = this->size_;
         this->size_ = other.size_;
         other.size_ = temp_size;
