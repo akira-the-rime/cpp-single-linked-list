@@ -59,7 +59,7 @@ private:
             return *this;
         }
 
-        BasicIterator<ValueType>& operator++(int) noexcept {
+        BasicIterator<ValueType> operator++(int) noexcept {
             BasicIterator previous(*this);
             node_ = node_->next_node;
             return previous;
