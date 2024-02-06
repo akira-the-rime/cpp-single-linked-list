@@ -14,7 +14,7 @@ private:
     };
 
     mutable Node head_;
-    size_t size_;
+    size_t size_ = 0;
 
     template <typename ValueType>
     class BasicIterator {
@@ -83,13 +83,13 @@ public:
     using Iterator = BasicIterator<Type>;
     using ConstIterator = BasicIterator<const Type>;
 
-    SingleLinkedList() noexcept : size_(0) { }
+    SingleLinkedList() noexcept { }
 
     ~SingleLinkedList() noexcept {
         Clear();
     }
 
-    SingleLinkedList(std::initializer_list<Type> values) : size_(0) {
+    SingleLinkedList(std::initializer_list<Type> values) {
         try {
             FillIn(values);
         }
@@ -98,7 +98,7 @@ public:
         }
     }
 
-    SingleLinkedList(const SingleLinkedList<Type>& other) : size_(0) {
+    SingleLinkedList(const SingleLinkedList<Type>& other) {
         try {
             FillIn(other);
         }
