@@ -36,7 +36,7 @@ private:
             this->node_ = other.node_;
         }
 
-        BasicIterator& operator=(const BasicIterator& rhs) = default;
+        BasicIterator<ValueType>& operator=(const BasicIterator<ValueType>& rhs) = default;
 
         [[nodiscard]] bool operator==(const BasicIterator<const Type>& rhs) const noexcept {
             return &this->node_->value == &*rhs ? true : false;
@@ -54,12 +54,12 @@ private:
             return !(*this == rhs);
         }
 
-        BasicIterator& operator++() noexcept {
+        BasicIterator<ValueType>& operator++() noexcept {
             node_ = node_->next_node;
             return *this;
         }
 
-        BasicIterator operator++(int) noexcept {
+        BasicIterator<ValueType>& operator++(int) noexcept {
             BasicIterator previous(*this);
             node_ = node_->next_node;
             return previous;
@@ -75,6 +75,23 @@ private:
     private:
         Node* node_ = nullptr;
     };
+
+    template <class T>
+    void FillIn(const T& from) {
+        try {
+            SingleLinkedList<Type> temp;
+            Node* it = &temp.head_;
+            for (const Type& node : from) {
+                it->next_node = new Node(node, nullptr);
+                it = it->next_node;
+                ++temp.size_;
+            }
+            this->swap(temp);
+        }
+        catch (const std::bad_alloc&) {
+            throw std::bad_alloc();
+        }
+    }
 
 public:
     using value_type = Type;
@@ -107,7 +124,7 @@ public:
         }
     }
 
-    SingleLinkedList& operator=(const SingleLinkedList<Type>& other) {
+    SingleLinkedList<Type>& operator=(const SingleLinkedList<Type>& other) {
         if (this != &other) {
             try {
                 SingleLinkedList<Type> temp(other);
@@ -118,23 +135,6 @@ public:
             }
         }
         return *this;
-    }
-
-    template <class T>
-    void FillIn(const T& from) {
-        try {
-            SingleLinkedList<Type> temp;
-            Node* it = &temp.head_;
-            for (const Type& node : from) {
-                it->next_node = new Node(node, nullptr);
-                it = it->next_node;
-                ++temp.size_;
-            }
-            this->swap(temp);
-        }
-        catch (const std::bad_alloc&) {
-            throw std::bad_alloc();
-        }
     }
 
     void PushFront(const Type& value) {
