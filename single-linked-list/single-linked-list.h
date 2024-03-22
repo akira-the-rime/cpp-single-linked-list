@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <cassert>
 
 template <typename Type>
 class SingleLinkedList {
@@ -166,6 +167,7 @@ public:
 
     Iterator InsertAfter(ConstIterator pos, const Type& value) {
         try {
+            assert(pos != this->cend());
             pos.node_->next_node = new Node(value, pos.node_->next_node);
             ++size_;
         }
@@ -184,6 +186,7 @@ public:
     }
 
     Iterator EraseAfter(ConstIterator pos) noexcept {
+        assert(pos != this->cend());
         Node* required = pos.node_->next_node;
         pos.node_->next_node = required->next_node;
         delete required;
