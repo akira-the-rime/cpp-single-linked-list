@@ -1,8 +1,8 @@
 #pragma once
 
 #include <algorithm>
-#include <cstddef>
 #include <cassert>
+#include <cstddef>
 
 template <typename Type>
 class SingleLinkedList {
